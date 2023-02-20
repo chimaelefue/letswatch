@@ -13,9 +13,9 @@ const DefaultPage = () => {
         <div className='welcomeMsg' >
             <h1><TypeIt options={{ loop: true }}>Welcome to letswatch. </TypeIt>  </h1> 
             <h2> Your one-stop-shop for cinematic entertainment! </h2> 
-            <h3> So sit back, relax, and let us take you on a journey through the art of storytelling.</h3>
+            <h3> So sit back relax, and let us take you on a journey through the art of storytelling.</h3>
             <div className='welcomeBtn'>
-              <button className='get-started-btn' >Get Started</button>
+              <button className='get-started-btn' >Get Started!</button>
             </div>
         </div>
     </div>
