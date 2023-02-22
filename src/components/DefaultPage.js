@@ -15,7 +15,7 @@ const DefaultPage = () => {
             <h2> Your one-stop-shop for cinematic entertainment! </h2> 
             <h3> So sit back, relax, and let us take you on a journey through the art of storytelling.</h3>
             <div className='welcomeBtn'>
-              <button className='get-started-btn' >Get Started</button>
+              <button className='get-started-btn' >Get Started Here</button>
             </div>
         </div>
     </div>
