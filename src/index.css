@@ -1,3 +1,15 @@
+:root{
+  --transition: all 0.3s linear;
+  --spacing: 0.25rem;
+  --radius: 0.25rem;
+  --large-screen-width: 1170px;
+  --small-screen-width: 90vw;
+  --clr-primary: #0B78D1;
+  --clr-primary-dark: #282566;
+  --clr-white: #fff;
+  --clr-grey: #333;
+  
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,7 +29,7 @@ code {
   padding: 0;
 }
 .default{
-  color: white;
+  color:var(--clr-white);
   background-image: url("/public/defaultpic.jpg");
   height: 100vh;
   width: 100vw;
@@ -61,17 +73,17 @@ code {
 .default-nav h2{
   margin-left: 30px;
   text-transform: uppercase;
-  color: #0B78D1;
+  color: var(--clr-primary);
   font-size: 35px;
 }
 .sign-in-btn{
   margin-right: 20px;
   text-transform: uppercase;
-  background-color: #0B78D1;
+  background-color: var(--clr-primary);
   padding: 2px;
   border-radius: 10px;
   border: none;
-  color: white;
+  color: var(--clr-white);
   float: right;
   font-size: 1rem;
   font-weight: 400;
@@ -110,11 +122,117 @@ code {
 }
 .get-started-btn{
   text-transform: uppercase;
-  background-color: #0B78D1;
+  background-color: var(--clr-primary);
   font-size: 1rem;
   font-weight: 400;
   padding: 1rem;
   border-radius: 10px;
   border: none;
+  color: var(--clr-white);
+}
+.signInModal{
+  backdrop-filter: blur(3.5px);
+  background-color: transparent ; 
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  z-index: 1; 
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-white);
+}
+.sign-in-container{
+  
+  width: 50vw;
+  background-color: rgba(0,0,0,.75);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 80vh;
+  padding: 10px 0 10px;
+  justify-content: center;
+  align-items: center;
+}
+.signInHeader{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 1.5rem;
+}
+.CancelIcon{
+  display: block;
+  position: relative;
+}
+
+.CancelIcon svg{
+  width: 40px;
   color: white;
+}
+.sign-in-container h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.signInContent{
+  background-color: rgba(0,0,0,.75);
+  
+  padding: 0px;
+  /* border: 1px solid #888; */
+  width: 30vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.signInEmail {
+  height: 7vh;
+  width: 25vw;
+  border-radius: 0.7rem;
+  background-color: var(--clr-grey);
+  border: none;
+  margin: 0.8rem;
+  padding: 1rem;
+}
+.signInPassword{
+  height: 7vh;
+  width: 25vw;
+  border-radius: 0.7rem;
+  background-color: var(--clr-grey);
+  border: none;
+  margin: 0.8rem;
+  padding: 1rem;
+}
+.signInSubmit{
+  height: 7vh;
+  width: 25vw;
+  border-radius: 0.7rem;
+  background-color: var(--clr-primary);
+  border: none;
+  margin: 1.5rem;
+  color: var(--clr-white);
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.signUpSubmit{
+  height: 7vh;
+  width: 25vw;
+  border-radius: 0.7rem;
+  background-color: var(--clr-grey);
+  border: none;
+  margin: 1.5rem;
+  color: var(--clr-white);
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
 }
