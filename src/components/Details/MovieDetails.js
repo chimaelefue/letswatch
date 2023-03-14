@@ -1,6 +1,8 @@
 import React from 'react'
 import '../../index.css'
 import Header from '../layout/Header'
+import { useParams } from 'react-router';
+import useFetch from '../../features/useFetch';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -11,40 +13,57 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 const MovieDetails = () => {
+    const {id} = useParams()
+
+    const API_KEY = "c050b57e2f8bab4f68e33d1d1335fca0"; 
+    const [data, isLoading] = useFetch([
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`,
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
+    ]);
+    console.log("details",data);
+    
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const movieDetails = data[0];
+  console.log("movieDetails",movieDetails);
+  const cast = data[1]
+  console.log("cast", cast);
   return (
     <>
         <Header />
         <div className='movie-details-container'>
             <div className='upper-details'>
                 <div>
-                    <img src='prof2.jpg' alt='name of movie'/>
+                    <img src={`https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`}alt='name of movie'/>
                 </div>
                 <div>
-                    <h2>Movie Title</h2>
+                    <h2>{movieDetails?.title}</h2>
                     <h5>Overview:</h5>
-                    <p>
-                        Jake Sully, portrayed by Sam Worthington, is chosen to participate in the Avatar program, 
-                        in which humans remotely control genetically engineered Na'vi bodies to interact with the 
-                        planet's inhabitants. As he becomes more integrated into the Na'vi community, Jake becomes 
-                        sympathetic to their cause and ultimately leads them in a fight against the humans, who seek
-                        to destroy the Na'vi's home in order to mine a valuable mineral called unobtanium.
-                    </p>
-                    <h5>Released dated: 203-03-03</h5>
-                    <h5>Genre: 
-                        <button>Action</button>
-                        <button>Comedy</button>
+                    <p>{movieDetails?.overview}</p>
+                    <h5>Released dated: {movieDetails?.release_date}</h5>
+                    <h5>Genre:
+                        {movieDetails?.genres?.map(genre => (
+                            <button key={genre.id}>{genre.name}</button>
+                        ))}
                     </h5>
                     <h5>Crew:</h5>
+                   
                     <div className='crew-card'>
-                    <div className='individual-crew-card'>
-                        <strong>Producer: </strong>
-                        <p>Johnson Leo</p>
+                    {cast?.crew
+                        .filter((member) => member.job === 'Producer' || member.job === 'Director')
+                        .slice(0, 2)
+                        .map((member) => (
+                        
+                        <div key={member.id} className='individual-crew-card'  >
+                            <strong>{member.job}: </strong>
+                            <p>{member.name}</p>
+                        </div>
+                    
+                    ))}
                     </div>
-                    <div className='individual-crew-card'>
-                        <strong>Director: </strong>
-                        <p>Harley Oreo</p>
-                    </div>
-                    </div>
+                   
                 </div>
             </div>
             <div className='lower-details'>
@@ -59,66 +78,18 @@ const MovieDetails = () => {
                 className="mySwiper "
                 
                 >
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
+                    {cast?.cast?.map((castMember) => (
+                        <SwiperSlide key={castMember.id}>
+                            <div className='cast-container'>
+                                <img src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`} alt={castMember.name}/>
+                                <div className='cast-info'>
+                                    <h5>{castMember.name}</h5>
+                                    <h6>{castMember.character}</h6>
+                                    
+                                </div>
                             </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='cast-container'>
-                            <img src='prof2.jpg' alt='cast1'/>
-                            <div className='cast-info'>
-                                <h5>Name of actor</h5>
-                                <h6>Role of cast</h6>
-                                
-                            </div>
-                        </div>
-                    </SwiperSlide>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </div>

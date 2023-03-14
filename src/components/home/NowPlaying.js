@@ -50,7 +50,7 @@ const NowPlaying = () => {
         {nowPlaying && nowPlaying?.results.map((data) => (
 
            <SwiperSlide  className='now-playing-content my-swiper' key={data.id}>
-           <Link to="/movie-details" className='link'>
+           <Link to={`/movie-details/${data.id}`} className='link'>
              <img src ={`https://image.tmdb.org/t/p/w500/${data.backdrop_path}`} alt="slide1" />
              <div className='now-playing-text'>
                <h3>{data.title}</h3>

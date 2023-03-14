@@ -60,7 +60,7 @@ const Popular = () => {
                                                     <BookmarkIcon />
                                                 </span>
                                             </div>
-                                            <Link to="/movie-details" className='link'>
+                                            <Link to={`/movie-details/${data.id}`} className='link'>
                                                 <div className='img-container'>
                                                     <img src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} alt='popular1'/>
                                                     <div className='lower-card'>
