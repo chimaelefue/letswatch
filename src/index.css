@@ -487,10 +487,10 @@ color: #323232;
   cursor: pointer;
 }
   /*late-movies  */
-.latest-movies-title{
+.upcoming-movies-title{
   padding: 0.5rem 0 1.5rem 0;
 }
-.latest-movies-title h2{
+.upcoming-movies-title h2{
   color: var(--clr-primary-dark);
   font-size: 2rem;
   font-weight: 400;

@@ -4,12 +4,15 @@ import '../../index.css'
 import HomePage from '../home/HomePage'
 import { useNavigate } from 'react-router'
 import Button from '../Button'
+import { updateEmail } from '../../features/movieSlice'
+import { useDispatch } from 'react-redux'
 
 
 const SignInModal = ({handleShowRegisterForm, setShowSignInModal}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const signInSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +22,7 @@ const SignInModal = ({handleShowRegisterForm, setShowSignInModal}) => {
           // Navigate to home page using React Router
           navigate("/movies");
         }
+        dispatch(updateEmail(email))
        
     };
       

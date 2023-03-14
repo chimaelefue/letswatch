@@ -3,8 +3,8 @@ import Header from '../layout/Header'
 import NowPlaying from './NowPlaying'
 import Popular from './Popular'
 import '../../index.css'
-import LatestMovies from './LatestMovies'
 import TopRated from './TopRated'
+import UpcomingMovies from './UpcomingMovies'
 
 const HomePage = () => {
   return (
@@ -13,7 +13,7 @@ const HomePage = () => {
       <Header />
       <NowPlaying />
       <Popular />
-      <LatestMovies />
+      <UpcomingMovies />
       <TopRated />
 
     </div>
