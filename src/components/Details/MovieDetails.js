@@ -1,8 +1,8 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
 import '../../index.css'
 import Header from '../layout/Header'
 import { useParams } from 'react-router';
-import useFetch from '../../features/useFetch';
+import FetchData from '../../utils/FetchData';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -14,29 +14,27 @@ import "swiper/css/pagination";
 
 const MovieDetails = () => {
     const {id} = useParams()
+    const [data, isLoading] = FetchData(id);
 
-    const API_KEY = "c050b57e2f8bab4f68e33d1d1335fca0"; 
-    const [data, isLoading] = useFetch([
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`,
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=en-US`
-    ]);
-    console.log("details",data);
-    
+    // useEffect(() => {
+        
+    // }, [id]);
+        
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   const movieDetails = data[0];
-  console.log("movieDetails",movieDetails);
+  
   const cast = data[1]
-  console.log("cast", cast);
+ 
   return (
     <>
         <Header />
         <div className='movie-details-container'>
             <div className='upper-details'>
                 <div>
-                    <img src={`https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`}alt='name of movie'/>
+                    <img src={`${process.env.REACT_APP_API_IMG}${movieDetails?.poster_path}`}alt='name of movie'/>
                 </div>
                 <div>
                     <h2>{movieDetails?.title}</h2>
@@ -81,7 +79,7 @@ const MovieDetails = () => {
                     {cast?.cast?.map((castMember) => (
                         <SwiperSlide key={castMember.id}>
                             <div className='cast-container'>
-                                <img src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`} alt={castMember.name}/>
+                                <img src={`${process.env.REACT_APP_API_IMG}${castMember.profile_path}`} alt={castMember.name}/>
                                 <div className='cast-info'>
                                     <h5>{castMember.name}</h5>
                                     <h6>{castMember.character}</h6>

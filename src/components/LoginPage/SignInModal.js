@@ -1,11 +1,12 @@
 import { CancelSignInIcon } from '../../icons'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../../index.css'
 import HomePage from '../home/HomePage'
 import { useNavigate } from 'react-router'
 import Button from '../Button'
-import { updateEmail } from '../../features/movieSlice'
+import { updateEmail } from '../../store/actions'
 import { useDispatch } from 'react-redux'
+import { MOVIES } from '../../routes'
 
 
 const SignInModal = ({handleShowRegisterForm, setShowSignInModal}) => {
@@ -14,17 +15,47 @@ const SignInModal = ({handleShowRegisterForm, setShowSignInModal}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    // Check if user is stored in LocalStorage
+    const storedCredentials = JSON.parse(localStorage.getItem('credentials'));
+    const storedMail = storedCredentials.email;
+    const storedPass = storedCredentials.password;
+    
+    // Set initial authentication state
+    const [authenticated, setAuthenticated] = useState(!!localStorage.getItem('authenticated'));
+
+    // Handle login
+    const handleLogin = (email, password) => {
+        if (email === storedMail && password === storedPass) {
+            // Set authenticated status 
+            setAuthenticated(true);
+            // Save user and authentication status to LocalStorage
+            // localStorage.setItem('user', JSON.stringify(storedUser));
+            localStorage.setItem('authenticated', true);
+        } else {
+            // Authentication failed
+            alert("Invalid email or password");
+        }
+    };
+ 
+
     const signInSubmit = (e) => {
         e.preventDefault();
       
         // Check if email and password are not empty
         if (email !== "" && password !== "") {
-          // Navigate to home page using React Router
-          navigate("/movies");
+            // Attempt to log in
+            handleLogin(email, password);
+            // Navigate to home page using React Router
+            navigate(MOVIES);
         }
         dispatch(updateEmail(email))
-       
     };
+
+    useEffect(() => {
+        // Update authenticated state when 'authenticated' key in LocalStorage changes
+        setAuthenticated(!!localStorage.getItem('authenticated'));
+      }, []);
+    
       
   return (
     <>

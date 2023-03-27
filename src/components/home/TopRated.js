@@ -3,8 +3,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../index.css'
 import { FavouriteIcon, BookmarkIcon } from '../../icons';
 import { Link } from 'react-router-dom';
-import { fetchTopRated } from '../../features/movieSlice';
+import { fetchTopRated } from '../../store/actions';
 import { useSelector, useDispatch } from "react-redux";
+import { MOVIE_DETAILS } from '../../routes';
 
 // import required modules
 import { Pagination } from "swiper";
@@ -25,7 +26,7 @@ const TopRated = () => {
     if (isLoading) {
         return <div>Loading...</div>;
     }
-    console.log(topRated);
+    
     return (
         <>
             <div className='my-swiper'>
@@ -58,9 +59,9 @@ const TopRated = () => {
                                             <BookmarkIcon />
                                         </span>
                                     </div>
-                                    <Link to={`/movie-details/${data.id}`} className='link'>
+                                    <Link to={`${MOVIE_DETAILS}/${data.id}`} className='link'>
                                         <div className='img-container'>
-                                            <img src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} alt='popular1'/>
+                                            <img src={`${process.env.REACT_APP_API_IMG}${data.poster_path}`} alt='popular1'/>
                                             <div className='lower-card'>
                                                 <div className='card-title'>
                                                     <h5>{data.title}</h5>
