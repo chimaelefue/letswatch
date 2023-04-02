@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../index.css'
 import { FavouriteIcon, BookmarkIcon } from '../../icons';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPopular } from '../../store/actions';
 import { MOVIE_DETAILS } from '../../routes';
+
 
 // import required modules
 import { Pagination } from "swiper";
@@ -18,14 +19,32 @@ import "swiper/css/pagination";
 const Popular = () => {
     const { popular, isLoading, error } = useSelector((state) => state.movie);
     const dispatch = useDispatch();
+    const [checkedMovies, setCheckedMovies] = useState([]);
+
  
     useEffect(() => {
         dispatch(fetchPopular());
     }, [dispatch]);
 
+    useEffect(() => {
+        const storedMovies = JSON.parse(localStorage.getItem('checkedMovies'));
+        if (storedMovies) {
+          setCheckedMovies(storedMovies);
+        }
+      }, []);
+
     if (isLoading) {
         return <div>Loading...</div>;
     }
+
+    const handleCheckboxChange = (event, data) => {
+        const updatedCheckedMovies = event.target.checked
+          ? [...checkedMovies, data]
+          : checkedMovies.filter((id) => id !== data);
+    
+        setCheckedMovies(updatedCheckedMovies);
+        localStorage.setItem('checkedMovies', JSON.stringify(updatedCheckedMovies));
+    };
     
     return (
             <>
@@ -53,7 +72,11 @@ const Popular = () => {
                                         <div className='movie-card'>
                                             <div className='upper-card'>
                                                 <span className='upper-card-span'>
-                                                    <input type='checkbox' />
+                                                    <input 
+                                                        type='checkbox'
+                                                        checked={checkedMovies.includes(data)}
+                                                        onChange={(event) => handleCheckboxChange(event, data)} 
+                                                    />
                                                     <FavouriteIcon />
                                                 </span>
                                                 <span className='upper-card-span'> 

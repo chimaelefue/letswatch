@@ -1,8 +1,9 @@
-import React ,{useEffect} from 'react'
+import React  from 'react'
 import '../../index.css'
 import Header from '../layout/Header'
 import { useParams } from 'react-router';
 import FetchData from '../../utils/FetchData';
+import FetchSearchData from '../../utils/FetchSearchData';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
@@ -15,11 +16,7 @@ import "swiper/css/pagination";
 const MovieDetails = () => {
     const {id} = useParams()
     const [data, isLoading] = FetchData(id);
-
-    // useEffect(() => {
-        
-    // }, [id]);
-        
+    
   if (isLoading) {
     return <div>Loading...</div>;
   }

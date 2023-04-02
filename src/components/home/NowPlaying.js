@@ -44,19 +44,20 @@ const NowPlaying = () => {
               disableOnInteraction: false
           }}
         
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
+       
       >
 
         {nowPlaying && nowPlaying?.results.map((data) => (
 
            <SwiperSlide  className='now-playing-content my-swiper' key={data.id}>
            <Link to={`${MOVIE_DETAILS}/${data.id}`} className='link'>
-             <img src ={`${process.env.REACT_APP_API_IMG}${data.backdrop_path}`} alt="slide1" />
-             <div className='now-playing-text'>
-               <h3>{data.title}</h3>
-               <p>Release Date: {data.release_date}</p>
-               <p>Vote Average: {data.vote_average}</p>
+             <div className='now-playing'>
+              <img src ={`${process.env.REACT_APP_API_IMG}${data.backdrop_path}`} alt="slide1" />
+              <div className='now-playing-text'>
+                <h3>{data.title}</h3>
+                <p>Release Date: {data.release_date}</p>
+                <p>Vote Average: {data.vote_average}</p>
+              </div>
              </div>
            </Link>
          </SwiperSlide>
